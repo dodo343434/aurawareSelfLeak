@@ -12550,6 +12550,39 @@ void ImGui::EndGroup()
 //      pos_x != 0      : align to specified x position (relative to window/group left)
 //      spacing_w < 0   : use default spacing if pos_x == 0, no spacing if pos_x != 0
 //      spacing_w >= 0  : enforce spacing amount
+
+void ColorPickerBox(const char* picker_idname, float col_ct[], float col_t[], float col_ct_invis[], float col_t_invis[], bool alpha = true)
+{
+	ImGui::SameLine();
+	bool switch_entity_teams = false;
+	bool switch_color_vis = false;
+	bool open_popup = ImGui::ColorButtonFloat(picker_idname, switch_entity_teams ? (switch_color_vis ? col_t : col_t_invis) : (switch_color_vis ? col_ct : col_ct_invis), ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview | ImGuiColorEditFlags_AlphaPreview | ImGuiColorEditFlags_NoTooltip, ImVec2(13, 0));
+	if (open_popup) {
+		ImGui::OpenPopup(picker_idname);
+		Colorpicker_Close = ImGui::GetID(picker_idname);
+	}
+
+	if (ImGui::BeginPopup(picker_idname))
+	{
+		const char* button_name0 = switch_entity_teams ? "Terrorists" : "Counter-Terrorists";
+		if (ImGui::Button(button_name0, ImVec2(-1, 0)))
+			switch_entity_teams = !switch_entity_teams;
+
+		const char* button_name1 = switch_color_vis ? "Invisible" : "Visible";
+		if (ImGui::Button(button_name1, ImVec2(-1, 0)))
+			switch_color_vis = !switch_color_vis;
+
+		std::string id_new = picker_idname;
+		id_new += "##pickeritself_";
+
+		ImGui::ColorPicker4(id_new.c_str(), switch_entity_teams ? (switch_color_vis ? col_t : col_t_invis) : (switch_color_vis ? col_ct : col_ct_invis), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview | ImGuiColorEditFlags_PickerHueBar | (alpha ? ImGuiColorEditFlags_AlphaPreview | ImGuiColorEditFlags_AlphaBar : 0));
+		ImGui::EndPopup();
+	}
+}
+bool ImGui::ColorButtonFloat(const char* desc_id, const float col[], ImGuiColorEditFlags flags, ImVec2 size)
+{
+	return ImGui::ColorButton(desc_id, ImColor(col[0], col[1], col[2], col[3]), flags, size);
+}
 void ImGui::SameLine(float pos_x, float spacing_w)
 {
     ImGuiWindow* window = GetCurrentWindow();

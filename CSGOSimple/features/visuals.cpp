@@ -275,6 +275,7 @@ void Visuals::Player::RenderArmour()
 	g_VGuiSurface->DrawFilledRect(x + 1, y + 1, x + w - 1, y + height - 2);
 }
 //--------------------------------------------------------------------------------
+
 void Visuals::Misc::RenderC4Info(C_PlantedC4* ent)
 {
 
