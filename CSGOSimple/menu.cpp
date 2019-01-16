@@ -280,6 +280,7 @@ void RenderCurrentWeaponButton()
 		weapon_index = weapon->m_Item().m_iItemDefinitionIndex();
 	}
 }
+
 ImGuiID Colorpicker_Close = 0;
 __inline void CloseLeftoverPicker() { if (Colorpicker_Close) ImGui::ClosePopup(Colorpicker_Close); }
 void ColorPickerBox(const char* picker_idname, float col_ct[], float col_t[], float col_ct_invis[], float col_t_invis[], bool alpha = true)
@@ -310,11 +311,6 @@ void ColorPickerBox(const char* picker_idname, float col_ct[], float col_t[], fl
 		ImGui::EndPopup();
 	}
 }
-bool ImGui::ColorButtonFloat(const char* desc_id, const float col[], ImGuiColorEditFlags flags, ImVec2 size)
-{
-	return ImGui::ColorButton(desc_id, ImColor(col[0], col[1], col[2], col[3]), flags, size);
-}
-
 void Menu::Initialize()
 {
     _visible = true;

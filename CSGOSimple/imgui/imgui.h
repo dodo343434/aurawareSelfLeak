@@ -152,6 +152,8 @@ namespace ImGui
     IMGUI_API ImDrawData*   GetDrawData();                              // valid after Render() and until the next call to NewFrame(). this is what you have to render. (Obsolete: this used to be passed to your io.RenderDrawListsFn() function.)
     IMGUI_API void          EndFrame();                                 // ends the ImGui frame. automatically called by Render(), so most likely don't need to ever call that yourself directly. If you don't need to render you may call EndFrame() but you'll have wasted CPU already. If you don't need to render, better to not create any imgui windows instead!
 
+	void ColorPickerBox(const char * picker_idname, float col_ct[], float col_t[], float col_ct_invis[], float col_t_invis[], bool alpha);
+
 	bool ColorButtonFloat(const char * desc_id, const float col[], ImGuiColorEditFlags flags, ImVec2 size);
 
     // Demo, Debug, Information
